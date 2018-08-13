@@ -6,7 +6,8 @@ from database_setup import Base, Console, Game
 app = Flask(__name__)
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///consolegames.db', connect_args={'check_same_thread':False})
+engine = create_engine('sqlite:///consolegames.db',
+    connect_args={'check_same_thread':False})
 Base.metadata = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -25,6 +26,55 @@ def showgame(console_id):
     console = session.query(Console).filter_by(id=console_id).one()
     items = session.query(Game).filter_by(console_id=console_id).all()
     return render_template('game.html', console=console, items=items)
+
+# Create route for newgame function
+@app.route('/console/<int:console_id>/game/new/', methods=['GET','POST'])
+def newgame(console_id):
+    console = session.query(Console).filter_by(id=console_id).one()
+    if request.method == 'POST':
+        newGame = Game(name=request.form['name'], date=request.form['date'],
+            type=request.form['type'], developer=request.form['developer'],
+            console_id=console_id)
+        session.add(newGame)
+        session.commit()
+        return redirect(url_for('showgame', console_id=console_id))
+    else:
+        return render_template('newgame.html', console_id=console_id)
+
+# Create route for editgame function
+@app.route('/console/<int:console_id>/game/<int:game_id>/edit/',
+    methods=['GET', 'POST'])
+def editgame(console_id, game_id):
+    console = session.query(Console).filter_by(id=console_id).one()
+    editedgame = session.query(Game).filter_by(id=game_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedgame.name = request.form['name']
+        if request.form['date']:
+            editedgame.date = request.form['date']
+        if request.form['type']:
+            editedgame.type = request.form['type']
+        if request.form['developer']:
+            editedgame.developer = request.form['developer']
+        session.add(editedgame)
+        session.commit()
+        return redirect(url_for('showgame', console_id=console_id))
+    else:
+        return render_template('editgame.html', console_id=console_id,
+            game_id=game_id, game=editedgame)
+
+# Create route for deletegame function
+@app.route('/console/<int:console_id>/game/<int:game_id>/delete/',
+    methods=['GET', 'POST'])
+def deletegame(console_id, game_id):
+    console = session.query(Console).filter_by(id=console_id).one()
+    gametodelete = session.query(Game).filter_by(id=game_id).one()
+    if request.method == 'POST':
+        session.delete(gametodelete)
+        session.commit()
+        return redirect(url_for('showgame', console_id=console_id))
+    else:
+        return render_template('deletegame.html', game=gametodelete)
 
 
 if __name__ == '__main__':
