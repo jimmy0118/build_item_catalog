@@ -1,0 +1,25 @@
+<html>
+<body>
+  <div>
+    {{console.name}}
+    </br>
+    </br>
+  </div>
+  <div>
+    {% for item in items %}
+      {{item.name}}
+      </br>
+      {{item.date}}
+      </br>
+      {{item.type}}
+      </br>
+      {{item.developer}}
+      </br>
+      </br>
+    {% endfor %}
+  </div>
+  <div>
+    <a href="{{url_for('showconsole')}}">Back to Consoles Pahe!!!</a>
+  </div>
+</body>
+</html>

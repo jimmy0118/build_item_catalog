@@ -1,0 +1,11 @@
+<html>
+<body>
+  {% for console in consoles %}
+    <div>
+      <a href="{{url_for('showgame', console_id = console.id)}}">
+        {{console.name}}
+      </a>
+    </div>
+  {% endfor %}
+</body>
+</html>
