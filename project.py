@@ -12,6 +12,23 @@ Base.metadata = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+# JSON APIs to view Restaurant Information
+@app.route('/console/JSON')
+def showconsoleJSON():
+    consoles = session.query(Console).all()
+    return jsonify(consoles=[c.serialize for c in consoles])
+
+@app.route('/console/<int:console_id>/game/JSON')
+def showgameJSON(console_id):
+    console = session.query(Console).filter_by(id=console_id).one()
+    items = session.query(Game).filter_by(console_id=console_id).all()
+    return jsonify(games=[i.serialize for i in items])
+
+@app.route('/console/<int:console_id>/game/<int:game_id>/JSON')
+def gameinfoJSON(console_id, game_id):
+    game = session.query(Game).filter_by(id=game_id).one()
+    return jsonify(gameinfo=[game.serialize])
+
 # Show all consoles
 @app.route('/')
 @app.route('/console/')
@@ -37,6 +54,7 @@ def newgame(console_id):
             console_id=console_id)
         session.add(newGame)
         session.commit()
+        flash("new game info created!")
         return redirect(url_for('showgame', console_id=console_id))
     else:
         return render_template('newgame.html', console_id=console_id)
@@ -58,6 +76,7 @@ def editgame(console_id, game_id):
             editedgame.developer = request.form['developer']
         session.add(editedgame)
         session.commit()
+        flash("game info has been edited!")
         return redirect(url_for('showgame', console_id=console_id))
     else:
         return render_template('editgame.html', console_id=console_id,
@@ -72,11 +91,13 @@ def deletegame(console_id, game_id):
     if request.method == 'POST':
         session.delete(gametodelete)
         session.commit()
+        flash("game info has been deleted!")
         return redirect(url_for('showgame', console_id=console_id))
     else:
         return render_template('deletegame.html', game=gametodelete)
 
 
 if __name__ == '__main__':
+    app.secret_key = 'super_secret_key'
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
