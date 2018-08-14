@@ -1,0 +1,15 @@
+<html>
+<body>
+  <h1>New Console</h1>
+  <form action="{{url_for('newconsole')}}" method='post'>
+    <div>
+      <h2>Console Name:</h2>
+      <input type='text' size='30' name='name' placeholder='Name of console'>
+      <input type='submit' value='Create'>
+    </div>
+    <div>
+      <a href="{{url_for('showconsole')}}">Cancel</a>
+    </div>
+  </form>
+</body>
+</html>

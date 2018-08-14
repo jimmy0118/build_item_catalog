@@ -1,10 +1,21 @@
 <html>
 <body>
+  <div>
+    <a href="{{url_for('newconsole')}}">Create New Console</a>
+  </br>
+  </br>
+  </div>
   {% for console in consoles %}
     <div>
       <a href="{{url_for('showgame', console_id = console.id)}}">
         {{console.name}}
       </a>
+      </br>
+      <a href="{{url_for('editconsole', console_id = console.id)}}">Edit</a>
+      </br>
+      <a href="{{url_for('deleteconsole', console_id = console.id)}}">Delete</a>
+      </br>
+      </br>
     </div>
   {% endfor %}
 </body>

@@ -1,0 +1,12 @@
+<html>
+<body>
+  <h1>Edit Console</h1>
+  <form action="{{url_for('editconsole', console_id=console.id)}}" method='post'>
+    <div>
+      Name:
+      <input type='text' size='30' name='name' placeholder='{{console.name}}'>
+      <input type='submit' value='Edit'>
+    </div>
+  </form>
+</body>
+</html>

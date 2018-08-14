@@ -36,6 +36,39 @@ def showconsole():
     consoles = session.query(Console).order_by(asc(Console.name))
     return render_template('consoles.html', consoles=consoles)
 
+# Create route for newconsole function
+@app.route('/console/new', methods=['GET','POST'])
+def newconsole():
+    if request.method == 'POST':
+        newConsole = Console(name=request.form['name'])
+        session.add(newConsole)
+        session.commit()
+        return redirect(url_for('showconsole'))
+    else:
+        return render_template('newconsole.html')
+
+# Create route for editconsole function
+@app.route('/console/<int:console_id>/edit/', methods=['GET','POST'])
+def editconsole(console_id):
+    editedconsole = session.query(Console).filter_by(id=console_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedconsole.name = request.form['name']
+        return redirect(url_for('showconsole'))
+    else:
+        return render_template('editconsole.html', console=editedconsole)
+
+# Create route for deleteconsole function
+@app.route('/console/<int:console_id>/delete/', methods=['GET','POST'])
+def deleteconsole(console_id):
+    consoletodelete = session.query(Console).filter_by(id=console_id).one()
+    if request.method == 'POST':
+        session.delete(consoletodelete)
+        session.commit()
+        return redirect(url_for('showconsole'))
+    else:
+        return render_template('deleteconsole.html', console=consoletodelete)
+
 # Show games of one console
 @app.route('/console/<int:console_id>/')
 @app.route('/console/<int:console_id>/game/')
