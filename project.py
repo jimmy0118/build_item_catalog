@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Console, Game
+from database_setup import Base, Console, Game, User
 from flask import session as login_session
 import random, string
 from oauth2client.client import flow_from_clientsecrets
@@ -17,7 +17,7 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///consolegames.db',
+engine = create_engine('sqlite:///consolegameswithusers.db',
     connect_args={'check_same_thread':False})
 Base.metadata = engine
 DBSession = sessionmaker(bind=engine)

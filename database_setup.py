@@ -6,11 +6,21 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    picture = Column(String(250))
+
 class Console(Base):
     __tablename__ = 'console'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
+    user_id = Column(Integer,ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
@@ -30,6 +40,8 @@ class Game(Base):
     developer = Column(String(250))
     console_id = Column(Integer,ForeignKey('console.id'))
     console = relationship(Console)
+    user_id = Column(Integer,ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
@@ -43,6 +55,6 @@ class Game(Base):
        }
 
 
-engine = create_engine('sqlite:///consolegames.db')
+engine = create_engine('sqlite:///consolegameswithusers.db')
 
 Base.metadata.create_all(engine)
