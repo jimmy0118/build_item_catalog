@@ -1,5 +1,7 @@
-<html>
-<body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
   <div>
     <h1>Video Games!!!</h1>
   </div>
@@ -23,5 +25,4 @@
       </br>
     </div>
   {% endfor %}
-</body>
-</html>
+{% endblock %}

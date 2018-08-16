@@ -1,5 +1,7 @@
-<html>
-<body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
   <div>
     <h1>{{console.name}}</h1>
   </div>
@@ -30,5 +32,4 @@
   <div>
     <a href="{{url_for('showconsole')}}">Back to Consoles Page!!!</a>
   </div>
-</body>
-</html>
+{% endblock %}

@@ -1,5 +1,6 @@
-<html>
-<body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
   <h1>New Console</h1>
   <form action="{{url_for('newconsole')}}" method='post'>
     <div>
@@ -11,5 +12,4 @@
       <a href="{{url_for('showconsole')}}">Cancel</a>
     </div>
   </form>
-</body>
-</html>
+{% endblock %}

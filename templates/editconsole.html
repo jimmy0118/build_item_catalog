@@ -1,5 +1,6 @@
-<html>
-<body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
   <h1>Edit Console</h1>
   <form action="{{url_for('editconsole', console_id=console.id)}}" method='post'>
     <div>
@@ -8,6 +9,5 @@
       <input type='submit' value='Edit'>
     </div>
   </form>
-  <a href="{{url_for('showconsole')}}">Cancel</a>
-</body>
-</html>
+  <a href="{{url_for('showgame', console_id=console.id)}}">Cancel</a>
+{% endblock %}

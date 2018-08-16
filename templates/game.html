@@ -1,7 +1,14 @@
-<html>
-<body>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
   <div>
     <h1>{{console.name}}</h1>
+    <a href="{{url_for('editconsole', console_id = console.id)}}">Edit</a>
+    </br>
+    <a href="{{url_for('deleteconsole', console_id = console.id)}}">Delete</a>
+    </br>
+    </br>
   </div>
   <div>
     {% with messages = get_flashed_messages() %}
@@ -39,5 +46,4 @@
   <div>
     <a href="{{url_for('showconsole')}}">Back to Consoles Page!!!</a>
   </div>
-</body>
-</html>
+{% endblock %}
