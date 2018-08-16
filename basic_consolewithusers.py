@@ -7,9 +7,8 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-# Create first user
-user1 = User(name="Jimmy", email="tingwei2629@gmail.com",
-             picture='https://pbs.twimg.com/profile_images/2671170543/18debd694829ed78203a5a36dd364160_400x400.png')
+
+user1 = User(name="Jimmy", email="test@gmail.com", picture="https://pbs.twimg.com/profile_images/2671170543/18debd694829ed78203a5a36dd364160_400x400.png")
 session.add(user1)
 session.commit()
 

@@ -56,6 +56,6 @@ class Game(Base):
        }
 
 
-engine = create_engine('sqlite:///consolegameswithusers.db')
+engine = create_engine('sqlite:///test.db')
 
 Base.metadata.create_all(engine)
