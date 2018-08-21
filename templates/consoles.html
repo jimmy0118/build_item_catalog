@@ -2,15 +2,10 @@
 {% block content %}
 {% include "header.html" %}
 
-  <div>
-    <h1>Video Games!!!</h1>
+  <div class="header">
+    <h1>All Consoles</h1>
   </div>
-
-  <div>
-    <a href="{{url_for('newconsole')}}">Create New Console</a>
-  </br>
-  </br>
-  <div>
+  <div class="flash">
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul>
@@ -21,9 +16,11 @@
       {% endif %}
     {% endwith %}
   </div>
+  <div class="button">
+    <a href="{{url_for('newconsole')}}">Create New Console</a>
   </div>
   {% for console in consoles %}
-    <div>
+    <div class="content">
       <a href="{{url_for('showgame', console_id = console.id)}}">
         {{console.name}}
       </a>

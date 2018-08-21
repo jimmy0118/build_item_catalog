@@ -1,10 +1,17 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-  <h1>Are you sure you want to delete {{console.name}}?</h1>
+  <div class="header">
+    <h1>Delete Console</h1>
+  </div>
+  <div class="inform">
+    Are you sure you want to delete {{console.name}}?
+  </div>
   <form action="{{url_for('deleteconsole', console_id=console.id)}}"
     method='post'>
-    <input type='submit' value='Delete'>
+    <input type='submit' class='button' value='Delete'>
   </form>
-  <a href="{{url_for('showconsole')}}">Cancel</a>
+  <div class="button">
+    <a href="{{url_for('showconsole')}}">Cancel</a>
+  </div>
 {% endblock %}

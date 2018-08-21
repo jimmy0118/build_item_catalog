@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+#!/usr/bin/python
+from flask import Flask, render_template, request, redirect
+from flask import jsonify, url_for, flash
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Console, Game, User
@@ -24,7 +26,9 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
+    newUser = User(name=login_session['username'],
+                   email=login_session['email'],
+                   picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -102,8 +106,8 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
-                                 200)
+        response = make_response(
+            json.dumps('Current user is already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -136,7 +140,8 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius: \
+    150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
@@ -158,7 +163,8 @@ def gdisconnect():
     	response.headers['Content-Type'] = 'application/json'
     	return response
     else:
-    	response = make_response(json.dumps('Failed to revoke token for given user.', 400))
+    	response = make_response(
+            json.dumps('Failed to revoke token for given user.', 400))
     	response.headers['Content-Type'] = 'application/json'
     	return response
 
@@ -179,23 +185,23 @@ def fbconnect():
         open('fb_client_secrets.json', 'r').read())['web']['app_id']
     app_secret = json.loads(
         open('fb_client_secrets.json', 'r').read())['web']['app_secret']
-    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
-        app_id, app_secret, access_token)
+    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (app_id, app_secret, access_token)  # nopep8
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
 
     # Use token to get user info from API
     userinfo_url = "https://graph.facebook.com/v2.8/me"
     '''
-        Due to the formatting for the result from the server token exchange we have to
-        split the token first on commas and select the first index which gives us the key : value
-        for the server access token then we split it on colons to pull out the actual token value
-        and replace the remaining quotes with nothing so that it can be used directly in the graph
-        api calls
+        Due to the formatting for the result from the server token exchange we
+        have to split the token first on commas and select the first index which
+        gives us the key : value for the server access token then we split it on
+        colons to pull out the actual token value and replace the remaining
+        quotes with nothing so that it can be used directly in the graph api
+        calls
     '''
     token = result.split(',')[0].split(':')[1].replace('"', '')
 
-    url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token
+    url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token  # nopep8
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     # print "url sent for API access:%s"% url
@@ -210,7 +216,7 @@ def fbconnect():
     login_session['access_token'] = token
 
     # Get user picture
-    url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
+    url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s&redirect=0&height=200&width=200' % token  # nopep8
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
@@ -229,7 +235,8 @@ def fbconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius:\
+     150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
@@ -240,7 +247,7 @@ def fbdisconnect():
     facebook_id = login_session['facebook_id']
     # The access token must me included to successfully logout
     access_token = login_session['access_token']
-    url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id,access_token)
+    url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id,access_token)  # nopep8
     h = httplib2.Http()
     result = h.request(url, 'DELETE')[1]
     return "you have been logged out"
@@ -300,7 +307,8 @@ def newconsole():
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
-        newConsole = Console(name=request.form['name'], user_id=login_session['user_id'])
+        newConsole = Console(name=request.form['name'],
+                             user_id=login_session['user_id'])
         session.add(newConsole)
         session.commit()
         flash("New Console Created!")
@@ -331,7 +339,9 @@ def deleteconsole(console_id):
     if 'username' not in login_session:
         return redirect('/login')
     if consoletodelete.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to delete this console. Please create your own console in order to delete.');}</script><body onload='myFunction()'>"
+        return "<script>function myFunction() {alert('You are not authorized to\
+        delete this console. Please create your own console in order to delete.\
+        ');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(consoletodelete)
         session.commit()
@@ -347,10 +357,17 @@ def showgame(console_id):
     console = session.query(Console).filter_by(id=console_id).one()
     creator = getUserInfo(console.user_id)
     items = session.query(Game).filter_by(console_id=console_id).all()
-    if 'username' not in login_session or creator.id != login_session['user_id']:
-        return render_template('publicgame.html', console=console, items=items, creator=creator)
+    if 'username' not in login_session or \
+            creator.id != login_session['user_id']:
+        return render_template('publicgame.html',
+                                console=console,
+                                items=items,
+                                creator=creator)
     else:
-        return render_template('game.html', console=console, items=items, creator=creator)
+        return render_template('game.html',
+                                console=console,
+                                items=items,
+                                creator=creator)
 
 # Create route for newgame function
 @app.route('/consoles/<int:console_id>/game/new/', methods=['GET','POST'])
@@ -403,7 +420,9 @@ def deletegame(console_id, game_id):
     if 'username' not in login_session:
         return redirect('/login')
     if gametodelete.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to delete this game. Please create your own game in order to delete.');}</script><body onload='myFunction()'>"
+        return "<script>function myFunction() {alert('You are not authorized to\
+        delete this game. Please create your own game in order to delete.');}\
+        </script><body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(gametodelete)
         session.commit()

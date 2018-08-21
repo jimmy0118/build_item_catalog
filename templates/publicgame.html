@@ -2,10 +2,10 @@
 {% block content %}
 {% include "header.html" %}
 
-  <div>
+  <div class="header">
     <h1>{{console.name}}</h1>
   </div>
-  <div>
+  <div class="flash">
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul>
@@ -16,7 +16,7 @@
       {% endif %}
     {% endwith %}
   </div>
-  <div>
+  <div class="content">
     {% for item in items %}
       {{item.name}}
       </br>
@@ -28,8 +28,5 @@
       </br>
       </br>
     {% endfor %}
-  </div>
-  <div>
-    <a href="{{url_for('showconsole')}}">Back to Consoles Page!!!</a>
   </div>
 {% endblock %}

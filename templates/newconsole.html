@@ -1,14 +1,17 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-  <h1>New Console</h1>
+
+  <div class="header">
+    <h1>New Console</h1>
+  </div>
   <form action="{{url_for('newconsole')}}" method='post'>
-    <div>
+    <div class="edit">
       <h2>Console Name:</h2>
       <input type='text' size='30' name='name' placeholder='Name of console'>
-      <input type='submit' value='Create'>
+      <input type='submit' class='button' value='Create'>
     </div>
-    <div>
+    <div class="button">
       <a href="{{url_for('showconsole')}}">Cancel</a>
     </div>
   </form>

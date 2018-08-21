@@ -1,26 +1,28 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-  <h1>Edit Game Info</h1>
+  <div class="header">
+    <h1>Edit Game Info</h1>
+  </div>
   <form action="{{url_for('editgame', console_id=console_id,
     game_id=game.id)}}" method='post'>
-    <div>
+    <div class="edit">
       <div>Name:
-        <input type='text' size='30' name='name' placeholder='{{game.name}}'>
+        <input type='text' maxlength='100' name='name' placeholder='{{game.name}}'>
       </div>
       <div>Date:
-        <input type='text' size='30' name='date' placeholder='{{game.date}}'>
+        <input type='text' maxlength='100' name='date' placeholder='{{game.date}}'>
       </div>
       <div>Type:
-        <input type='text' size='80' name='type' placeholder='{{game.type}}'>
+        <input type='text' maxlength='100' name='type' placeholder='{{game.type}}'>
       </div>
       <div>Developer:
-        <input type='text' size='30' name='developer' placeholder='{{game.developer}}'>
+        <input type='text' maxlength='100' name='developer' placeholder='{{game.developer}}'>
       </div>
-      <input type='submit' value='Edit'>
-    </div>
-    <div>
-      <a href="{{url_for('showgame', console_id=console_id)}}">Cancel</a>
+      <input type='submit' class='button' value='Edit'>
     </div>
   </form>
+  <div class='button'>
+    <a href="{{url_for('showgame', console_id=console_id)}}">Cancel</a>
+  </div>
 {% endblock %}
