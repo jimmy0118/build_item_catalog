@@ -8,20 +8,20 @@
   <form action="{{url_for('newgame', console_id = console_id)}}" method='post'>
     <div class="edit">
       <div>Name:
-        <input type='text' size='30' name='name' placeholder='Name of the game'>
+        <input type='text' maxlength='100' name='name' placeholder='Name of the game'>
       </div>
       <div>Date:
-        <input type='text' size='30' name='date' placeholder='2018-01-01'>
+        <input type='text' maxlength='100' name='date' placeholder='2018-01-01'>
       </div>
       <div>Type:
-        <input type='text' size='80' name='type' placeholder='game type'>
+        <input type='text' maxlength='100' name='type' placeholder='game type'>
       </div>
       <div>Developer:
-        <input type='text' size='30' name='developer' placeholder='game developer'>
+        <input type='text' maxlength='100' name='developer' placeholder='game developer'>
       </div>
       <input type='submit' class='button' value='Create'>
     </div>
-    <div class="button">
+    <div class="cancel">
       <a href="{{url_for('showgame', console_id=console_id)}}">Cancel</a>
     </div>
   </form>

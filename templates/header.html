@@ -1,5 +1,5 @@
 <div class="banner">
-	<div class="link_to_consoles">
+	<div class="homepage">
 		<a href="{{url_for('showconsole')}}">
 			Show All Consoles
 		</a>
@@ -7,7 +7,7 @@
 	<div class="main_title">
 		<h2>Video Games</h2>
 	</div>
-	<div class="login_info">
+	<div class="login">
 		{%if 'username' not in session %}
 			<a href="{{url_for('showLogin')}}">Login </a>
 		{% else %}

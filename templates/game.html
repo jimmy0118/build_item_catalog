@@ -3,10 +3,11 @@
 {% include "header.html" %}
 
   <div class="header">
-    <h1>{{console.name}}</h1>
-    <a href="{{url_for('editconsole', console_id = console.id)}}">Edit</a>
-    </br>
-    <a href="{{url_for('deleteconsole', console_id = console.id)}}">Delete</a>
+    <div class="editconsole">
+      <h1>{{console.name}}</h1>
+      <a href="{{url_for('editconsole', console_id = console.id)}}">Edit</a>
+      <a href="{{url_for('deleteconsole', console_id = console.id)}}">Delete</a>
+    </div>
   </div>
   <div class="flash">
     {% with messages = get_flashed_messages() %}
@@ -24,8 +25,8 @@
     </br>
     </br>
   </div>
-  <div class="content">
-    {% for item in items %}
+  {% for item in items %}
+    <div class="content">
       {{item.name}}
       </br>
       {{item.date}}
@@ -39,6 +40,6 @@
       <a href="{{url_for('deletegame', console_id = console.id, game_id = item.id)}}">Delete</a>
       </br>
       </br>
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
 {% endblock %}

@@ -1,0 +1,128 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Julius Sans One', sans-serif;
+  color: black;
+}
+
+.container {
+  display: block;
+}
+
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #009688;
+}
+
+.homepage {
+  width: 33.3%;
+  text-align: left;
+  padding-top: 20px;
+  padding-left: 15px;
+  color: gray;
+  font-size: 15px;
+}
+
+.main_title {
+  width: 33.3%;
+  text-align: center;
+}
+
+.login {
+  width:33.3%;
+  padding-top: 20px;
+  text-align: right;
+  padding-right: 15px;
+  color: gray;
+  font-size: 18px;
+}
+
+.header {
+  background-color: blue;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.content {
+  background-color: #00b8ff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  padding-top: 25px;
+  padding-left: 10px;
+  border-radius: 15px;
+}
+
+.buttonbox {
+  text-align: center;
+}
+
+.button {
+  border: 1px solid #c3b3b3;
+  text-align: center;
+  width: 170px;
+  background-color: #c3b3b3;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.flash {
+	background-color: #98FB98;
+	width:100%;
+	text-decoration: none;
+
+}
+
+.flash li {
+	list-style-type: none;
+	text-align: center;
+
+}
+
+.inform {
+  margin-bottom: 10px;
+}
+
+.cancel {
+  margin-top: 10px;
+}
+
+.editconsole {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.editconsole h1 {
+  width: 100%;
+}
+
+.editconsole a {
+  width: 100%;
+}
+
+/* footer */
+.footer p {
+  text-align: center;
+  color: #80774c;
+  font-size: 15px;
+}
+/* for responsive design */
+@media screen and (min-width: 720px){
+  .container {
+    width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

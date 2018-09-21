@@ -8,10 +8,10 @@
   <form action="{{url_for('newconsole')}}" method='post'>
     <div class="edit">
       <h2>Console Name:</h2>
-      <input type='text' size='30' name='name' placeholder='Name of console'>
+      <input type='text' maxlength='100' name='name' placeholder='Name of console'>
       <input type='submit' class='button' value='Create'>
     </div>
-    <div class="button">
+    <div class="cancel">
       <a href="{{url_for('showconsole')}}">Cancel</a>
     </div>
   </form>
